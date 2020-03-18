@@ -1,0 +1,13 @@
+server:
+  port: 8088
+
+spring:
+  main:
+    banner-mode: "off"
+  profiles:
+    active: main
+
+logging:
+  level:
+    root: WARN
+    com.dxfeed: ${LOGLEVEL:INFO}
