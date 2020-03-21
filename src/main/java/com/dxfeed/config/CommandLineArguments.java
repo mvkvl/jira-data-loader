@@ -38,9 +38,9 @@ public class CommandLineArguments {
         if (args.containsOption("clean")) {
             appConfig.setClean(true);
         }
-//        if (StringUtils.isEmpty(appConfig.getDateStr()) && appConfig.getLimit() <= 0) {
-//            appConfig.setAll(true);
-//        }
+        if (args.containsOption("all") || StringUtils.isEmpty(appConfig.getDateStr()) && appConfig.getLimit() <= 0) {
+            appConfig.setAll(true);
+        }
     }
 
 }

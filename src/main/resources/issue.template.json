@@ -1,0 +1,232 @@
+{
+  "id": 0,
+  "key": "",
+  "priority": {
+    "id": 0,
+    "name": ""
+  },
+  "description": "",
+  "summary": "",
+  "creationDate": {
+    "zone": {
+      "id": ""
+    },
+    "millis": 0
+  },
+  "updateDate": {
+    "zone": {
+      "id": ""
+    },
+    "millis": 0
+  },
+  "dueDate": {
+    "zone": {
+      "id": ""
+    },
+    "millis": 0
+  },
+  "project": {
+    "id": 0,
+    "key": "",
+    "name": ""
+  },
+  "resolution": {
+    "id": 1,
+    "name": "",
+    "description": ""
+  },
+  "status": {
+    "id": 0,
+    "name": "",
+    "description": "",
+    "statusCategory": {
+      "id": 0,
+      "key": "",
+      "name": ""
+    }
+  },
+  "assignee": {
+    "name": "",
+    "displayName": "",
+    "emailAddress": "",
+    "timezone": "",
+    "active": false
+  },
+  "timeTracking": {
+    "timeSpentMinutes": 0
+  },
+  "worklogs": [
+    {
+      "visibility": null,
+      "updateDate": {
+        "zone": {
+          "id": ""
+        },
+        "millis": 0
+      },
+      "creationDate": {
+        "zone": {
+          "id": ""
+        },
+        "millis": 0
+      },
+      "startDate": {
+        "zone": {
+          "id": ""
+        },
+        "millis": 0
+      },
+      "author": {
+        "name": "",
+        "displayName": ""
+      },
+      "updateAuthor": {
+        "name": "",
+        "displayName": ""
+      },
+      "minutesSpent": 0,
+      "comment": ""
+    }
+  ],
+  "components": [{
+    "id": 0,
+    "name": "",
+    "description": ""
+  }],
+  "issueType": {
+    "id": 0,
+    "name": "",
+    "description": "",
+    "subtask": false
+  },
+  "fixVersions": [{
+    "id": 0,
+    "name": "0",
+    "description": "",
+    "archived": false,
+    "released": true,
+    "releaseDate": {
+      "zone": {
+        "id": ""
+      },
+      "millis": 0
+    }
+  }],
+  "affectedVersions": [{
+    "id": 0,
+    "name": "",
+    "description": "",
+    "archived": false,
+    "released": true,
+    "releaseDate": {
+      "zone": {
+        "id": ""
+      },
+      "millis": 0
+    }
+  }],
+  "reporter": {
+    "name": "",
+    "displayName": "",
+    "emailAddress": "",
+    "timezone": "",
+    "active": true
+  },
+  "votes": {
+    "hasVoted": false,
+    "votes": 0
+  },
+  "attachments": [],
+  "issueLinks": [],
+  "comments": [],
+  "subtasks": [],
+  "labels": [],
+  "fields": [
+    {
+      "name": "Type of Vacancy",
+      "id": "customfield_18870",
+      "value": {"explicitNull": true}
+    },
+    {
+      "name": "Parent Hierarchy Field 2",
+      "id": "customfield_14271",
+      "type": null,
+      "value": "DXREQ-13341"
+    },
+    {
+      "name": "Applicable for",
+      "id": "customfield_12770",
+      "type": null,
+      "value": {"explicitNull": true}
+    },
+    {
+      "name": "Config note changed",
+      "id": "customfield_12772",
+      "type": null,
+      "value": {"explicitNull": true}
+    },
+    {
+      "name": "Date of First Response",
+      "id": "customfield_10111",
+      "type": null,
+      "value": {"explicitNull": true}
+    },
+    {
+      "name": "Config note projects details",
+      "id": "customfield_12773",
+      "type": null,
+      "value": {"explicitNull": true}
+    },
+    {
+      "name": "Time in Status",
+      "id": "customfield_10112",
+      "type": null,
+      "value": "10008_*:*_1_*:*_0_*|*_10013_*:*_1_*:*_992502_*|*_10001_*:*_1_*:*_14298_*|*_10003_*:*_1_*:*_721349_*|*_10006_*:*_1_*:*_24459"
+    },
+    {
+      "name": "Sprint",
+      "id": "customfield_15470",
+      "type": null,
+      "value": {
+        "escapeForwardSlashAlways": true,
+        "myArrayList": ["com.atlassian.greenhopper.service.sprint.Sprint@52ea8254[id=1413,rapidViewId=271,state=CLOSED,name=Sprint 20,startDate=2020-01-15T23:59:00.000+03:00,endDate=2020-01-31T23:59:00.000+03:00,completeDate=2020-02-03T12:34:30.990+03:00,sequence=1413,goal=Subscription management page and personal account]"]
+      }
+    },
+    {
+      "name": "Last Viewed",
+      "id": "lastViewed",
+      "type": null,
+      "value": {"explicitNull": true}
+    },
+    {
+      "name": "Flagged",
+      "id": "customfield_15870",
+      "type": null,
+      "value": {"explicitNull": true}
+    },
+    {
+      "name": "Epic Link",
+      "id": "customfield_15471",
+      "type": null,
+      "value": "DXREQ-13341"
+    },
+    {
+      "name": "Development",
+      "id": "customfield_17771",
+      "type": null,
+      "value": "{summaryBean=com.atlassian.jira.plugin.devstatus.rest.SummaryBean@73d1b5b7[summary={pullrequest=com.atlassian.jira.plugin.devstatus.rest.SummaryItemBean@1c54c776[overall=PullRequestOverallBean{stateCount=3, state='MERGED', details=PullRequestOverallDetails{openCount=0, mergedCount=3, declinedCount=0}},byInstanceType={stash=com.atlassian.jira.plugin.devstatus.summary.beans.ObjectByInstanceTypeBean@3168d780[count=3,name=Bitbucket Server]}], build=com.atlassian.jira.plugin.devstatus.rest.SummaryItemBean@50e7ba3[overall=com.atlassian.jira.plugin.devstatus.summary.beans.BuildOverallBean@60356b39[failedBuildCount=0,successfulBuildCount=0,unknownBuildCount=0,count=0,lastUpdated=<null>,lastUpdatedTimestamp=<null>],byInstanceType={}], review=com.atlassian.jira.plugin.devstatus.rest.SummaryItemBean@698b1d3a[overall=com.atlassian.jira.plugin.devstatus.summary.beans.ReviewsOverallBean@d16c57e[stateCount=0,state=<null>,dueDate=<null>,overDue=false,count=0,lastUpdated=<null>,lastUpdatedTimestamp=<null>],byInstanceType={}], deployment-environment=com.atlassian.jira.plugin.devstatus.rest.SummaryItemBean@7b33641c[overall=com.atlassian.jira.plugin.devstatus.summary.beans.DeploymentOverallBean@3014a4e0[topEnvironments=[],showProjects=false,successfulCount=0,count=0,lastUpdated=<null>,lastUpdatedTimestamp=<null>],byInstanceType={}], repository=com.atlassian.jira.plugin.devstatus.rest.SummaryItemBean@1c70d15[overall=com.atlassian.jira.plugin.devstatus.summary.beans.CommitOverallBean@3ac11566[count=3,lastUpdated=2020-01-30T17:19:32.000+1000,lastUpdatedTimestamp=2020-01-30T17:19:32.000+10:00],byInstanceType={stash=com.atlassian.jira.plugin.devstatus.summary.beans.ObjectByInstanceTypeBean@34d4fb08[count=3,name=Bitbucket Server]}], branch=com.atlassian.jira.plugin.devstatus.rest.SummaryItemBean@4f9409a4[overall=com.atlassian.jira.plugin.devstatus.summary.beans.BranchOverallBean@76821ae6[count=0,lastUpdated=<null>,lastUpdatedTimestamp=<null>],byInstanceType={}]},errors=[],configErrors=[]], devSummaryJson={\"cachedValue\":{\"errors\":[],\"configErrors\":[],\"summary\":{\"pullrequest\":{\"overall\":{\"count\":3,\"lastUpdated\":\"2020-02-05T23:35:15.353+1000\",\"stateCount\":3,\"state\":\"MERGED\",\"details\":{\"openCount\":0,\"mergedCount\":3,\"declinedCount\":0,\"total\":3},\"open\":false},\"byInstanceType\":{\"stash\":{\"count\":3,\"name\":\"Bitbucket Server\"}}},\"build\":{\"overall\":{\"count\":0,\"lastUpdated\":null,\"failedBuildCount\":0,\"successfulBuildCount\":0,\"unknownBuildCount\":0},\"byInstanceType\":{}},\"review\":{\"overall\":{\"count\":0,\"lastUpdated\":null,\"stateCount\":0,\"state\":null,\"dueDate\":null,\"overDue\":false,\"completed\":false},\"byInstanceType\":{}},\"deployment-environment\":{\"overall\":{\"count\":0,\"lastUpdated\":null,\"topEnvironments\":[],\"showProjects\":false,\"successfulCount\":0},\"byInstanceType\":{}},\"repository\":{\"overall\":{\"count\":3,\"lastUpdated\":\"2020-01-30T17:19:32.000+1000\"},\"byInstanceType\":{\"stash\":{\"count\":3,\"name\":\"Bitbucket Server\"}}},\"branch\":{\"overall\":{\"count\":0,\"lastUpdated\":null},\"byInstanceType\":{}}}},\"isStale\":true}}"
+    },
+    {
+      "name": "dxCustomSL",
+      "id": "customfield_13570",
+      "type": null,
+      "value": {"explicitNull": true}
+    },
+    {
+      "name": "Organizations",
+      "id": "customfield_17770",
+      "type": null,
+      "value": {"explicitNull": true}
+    }
+  ]
+}

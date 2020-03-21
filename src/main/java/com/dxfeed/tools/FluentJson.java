@@ -75,11 +75,21 @@ public class FluentJson implements Iterable<Object> {
     }
 
     public FluentJson add(FluentJson json) {
-        if (json.value instanceof JSONObject) {
-            json.keys().forEach(k -> this.set(k, json.get(k)));
-        } else if (json.value instanceof JSONArray) {
-            JSONArray a = (JSONArray)json.value;
-            json.stream().forEach(v -> a.add(v));
+        if (this.value instanceof JSONArray) {
+            if (json.value instanceof JSONObject) {
+                JSONArray a = (JSONArray)this.value;
+                a.add(json.get());
+            } else if (json.value instanceof JSONArray) {
+                JSONArray a = (JSONArray)this.value;
+                json.stream().forEach(v -> a.add(v.get()));
+            }
+        } else {
+            if (json.value instanceof JSONObject) {
+                json.keys().forEach(k -> this.set(k, json.get(k)));
+            } else if (json.value instanceof JSONArray) {
+                JSONArray a = (JSONArray)json.value;
+                json.stream().forEach(v -> a.add(v));
+            }
         }
         return this;
     }

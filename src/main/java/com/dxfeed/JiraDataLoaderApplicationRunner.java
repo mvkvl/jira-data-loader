@@ -1,5 +1,6 @@
 package com.dxfeed;
 
+import com.dxfeed.config.AppConfig;
 import com.dxfeed.loader.JiraDataLoader;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +14,6 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
-import com.dxfeed.config.AppConfig;
 
 @Slf4j
 @Component
@@ -40,26 +40,30 @@ public class JiraDataLoaderApplicationRunner implements CommandLineRunner, Appli
             printUsage();
             exitCode = 1;
         } else {
-
-            if (appConfig.isClean()) {
-                // cleanup database
-                System.out.println("cleaning up database...");
-            }
-
-            if (appConfig.isAll()) {
-                jiraDataLoader.load();
-            } else if (StringUtils.isBlank(appConfig.getDateStr()) && appConfig.getLimit() > 0) {
-                jiraDataLoader.load(appConfig.getLimit(), appConfig.getSkip());
-            } else if (StringUtils.isNotBlank(appConfig.getDateStr()) && appConfig.getLimit() > 0) {
-                jiraDataLoader.load(appConfig.getDateStr(), appConfig.getLimit(), appConfig.getSkip());
-            } else if (StringUtils.isNotBlank(appConfig.getDateStr())) {
-                jiraDataLoader.load(appConfig.getDateStr());
+            try {
+                // jiraDataLoader.test();
+                if (appConfig.isClean()) {
+                    // cleanup database
+                    System.out.println("cleaning up database...");
+                    jiraDataLoader.cleanup();
+                } else {
+                    if (appConfig.isAll()) {
+                        jiraDataLoader.load();
+                    } else if (StringUtils.isBlank(appConfig.getDateStr()) && appConfig.getLimit() > 0) {
+                        jiraDataLoader.load(appConfig.getLimit(), appConfig.getSkip());
+                    } else if (StringUtils.isNotBlank(appConfig.getDateStr()) && appConfig.getLimit() > 0) {
+                        jiraDataLoader.load(appConfig.getDateStr(), appConfig.getLimit(), appConfig.getSkip());
+                    } else if (StringUtils.isNotBlank(appConfig.getDateStr())) {
+                        jiraDataLoader.load(appConfig.getDateStr());
+                    }
+                }
+            } catch (Exception e) {
+                log.error("data load error: {}", e.getMessage());
             }
         }
 
         // jiraDataLoader.load("2020-03-16");
         // jiraDataLoader.load("-7d", 5);
-
 
         // close up
         applicationContext.close();
