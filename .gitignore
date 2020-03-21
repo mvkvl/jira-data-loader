@@ -10,3 +10,5 @@ clean.sh
 prepare.sh
 recent.sh
 sample.issue.json
+.profile
+**/env/env

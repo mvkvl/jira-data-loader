@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
 
-#export JIRA_USER=mikhail.kantur
-#export JIRA_PASS=Driver\$69Gutter
-#export JIRA_URL=https://jira.in.devexperts.com
-#export LOGLEVEL=TRACE
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 APP=jira-data-loader
+
+. ${DIR}/../env/env
+
 
 function load_all_data() {
   cd $DIR/..

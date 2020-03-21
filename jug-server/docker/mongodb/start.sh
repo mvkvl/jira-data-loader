@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# TODO: set docker container log limit
+
 docker network create jira-data
 docker run --rm -d -p 27017:27017                                           \
            --name mongodb                                                   \

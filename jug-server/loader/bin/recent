@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+/opt/loader/bin/load recent > /opt/loader/log/last-run.log
