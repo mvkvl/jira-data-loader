@@ -1,7 +1,8 @@
 package com.dxfeed.tools;
 
-import java.io.File;
-import java.io.IOException;
+import lombok.SneakyThrows;
+
+import java.io.*;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -29,7 +30,6 @@ public class FileTools {
         }
         return contentBuilder.toString();
     }
-
     public static String readFile(File file) {
         StringBuilder contentBuilder = new StringBuilder();
         try (Stream<String> stream = Files.lines( file.toPath(), StandardCharsets.UTF_8)) {
@@ -37,6 +37,23 @@ public class FileTools {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return contentBuilder.toString();
+    }
+
+    public static String readFileFromResources(String filePath) {
+        InputStream input = FileTools.class.getResourceAsStream("/resources/" + filePath);
+        if (input == null)
+            input = FileTools.class.getClassLoader().getResourceAsStream(filePath);
+        return readFileFromInputStream(input);
+    }
+
+    @SneakyThrows
+    private static String readFileFromInputStream(InputStream is) {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        StringBuilder contentBuilder = new StringBuilder();
+        String line;
+        while((line = reader.readLine()) != null)
+            contentBuilder.append(line).append(System.lineSeparator());
         return contentBuilder.toString();
     }
 

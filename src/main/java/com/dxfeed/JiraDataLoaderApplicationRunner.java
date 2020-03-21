@@ -36,29 +36,30 @@ public class JiraDataLoaderApplicationRunner implements CommandLineRunner, Appli
 
         int exitCode = 0;
 
-        if (!checkConfiguration()) {
-            printUsage();
-            exitCode = 1;
+        if (appConfig.isClean()) {
+            jiraDataLoader.cleanup();
         } else {
-            try {
-                // jiraDataLoader.test();
-                if (appConfig.isClean()) {
-                    // cleanup database
-                    System.out.println("cleaning up database...");
-                    jiraDataLoader.cleanup();
-                } else {
+            if (!checkConfiguration()) {
+                printUsage();
+                exitCode = 1;
+            } else {
+                try {
                     if (appConfig.isAll()) {
+                        System.out.println("loading all data");
                         jiraDataLoader.load();
                     } else if (StringUtils.isBlank(appConfig.getDateStr()) && appConfig.getLimit() > 0) {
+                        System.out.println("loading limited data");
                         jiraDataLoader.load(appConfig.getLimit(), appConfig.getSkip());
                     } else if (StringUtils.isNotBlank(appConfig.getDateStr()) && appConfig.getLimit() > 0) {
+                        System.out.println("loading limited recent data");
                         jiraDataLoader.load(appConfig.getDateStr(), appConfig.getLimit(), appConfig.getSkip());
                     } else if (StringUtils.isNotBlank(appConfig.getDateStr())) {
+                        System.out.println("loading recent data");
                         jiraDataLoader.load(appConfig.getDateStr());
                     }
+                } catch (Exception e) {
+                    log.error("data load error: {}", e.getMessage());
                 }
-            } catch (Exception e) {
-                log.error("data load error: {}", e.getMessage());
             }
         }
 

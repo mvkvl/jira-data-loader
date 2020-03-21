@@ -6,14 +6,14 @@ spring:
     banner-mode: "off"
   profiles:
     active: main
-#  data:
-#    mongodb:
-#      uri: mongodb://mongo:pass@localhost:27017/jira-data
 
 logging:
   level:
     root: WARN
-    com.dxfeed: ${LOGLEVEL:INFO}
+    log4j: OFF
+    org.slf4j: OFF
+    ch.qos.logback: OFF
+    com.dxfeed: ${LOGLEVEL:TRACE}
 
 camel:
   component:
@@ -23,6 +23,6 @@ camel:
 mongodb:
   host: localhost
   port: 27017
-  user: mongo
-  pass: pass
+  user: ${MONGODB_USER:mongo}
+  pass: ${MONGODB_PASSWORD:pass}
   db  : jira_data

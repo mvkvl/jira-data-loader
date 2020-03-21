@@ -1,28 +1,40 @@
 package com.dxfeed.config;
 
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @Component
-@ConfigurationProperties(prefix = "a2c")
+@ConfigurationProperties(prefix = "jdl")
 public class AppConfig {
 
     private String url;
     private String user;
     private String pass;
-    private List<String> projects = new ArrayList<>();
+
+    @Value("${loader.projects:}")
+    private List<String> projects;
 
     private boolean all   = false;
+
+    @Value("${loader.since:}")
     private String  dateStr;
     private int     limit = 0;
     private int     skip  = 0;
 
     private boolean clean;
+
+    @PostConstruct
+    private void init() {
+        if (null == projects)
+            projects = new ArrayList<>();
+    }
 
     public String toString() {
         return new StringBuilder()

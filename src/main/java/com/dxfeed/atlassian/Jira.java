@@ -2,9 +2,7 @@ package com.dxfeed.atlassian;
 
 import com.atlassian.jira.rest.client.api.JiraRestClient;
 import com.atlassian.jira.rest.client.api.domain.Issue;
-import com.atlassian.jira.rest.client.internal.async.AsynchronousJiraRestClientFactory;
 import com.dxfeed.config.AppConfig;
-import com.dxfeed.tools.FluentJson;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -13,14 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.lang.reflect.Field;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.function.Consumer;
-import java.util.function.Function;
 import java.util.stream.StreamSupport;
 
 @Slf4j
@@ -38,16 +34,21 @@ public class Jira {
     private void prepare() {
         System.out.println(appConfig.toString());
 
-        // https://community.atlassian.com/t5/Answers-Developer-Questions/Getting-SocketTimeOutException-while-fetching-custom-field/qaq-p/519455#309492
-        jiraRestClient = new CustomAsynchronousJiraRestClientFactory()
-            .createWithBasicHttpAuthenticationCustom(
-//        jiraRestClient = new AsynchronousJiraRestClientFactory()
-//            .createWithBasicHttpAuthentication(
-                URI.create(appConfig.getUrl()),
-                appConfig.getUser(),
-                appConfig.getPass(),
-                60
-            );
+        try {
+            // https://community.atlassian.com/t5/Answers-Developer-Questions/Getting-SocketTimeOutException-while-fetching-custom-field/qaq-p/519455#309492
+            // jiraRestClient = new AsynchronousJiraRestClientFactory()
+            //  .createWithBasicHttpAuthentication(
+            jiraRestClient = new CustomAsynchronousJiraRestClientFactory()
+                .createWithBasicHttpAuthenticationCustom(
+                    URI.create(appConfig.getUrl()),
+                    appConfig.getUser(),
+                    appConfig.getPass(),
+                    90
+                );
+        } catch (Exception e) {
+            log.warn("Jira client not initialized");
+        }
+
     }
 
     // https://stackoverflow.com/a/43972064

@@ -3,3 +3,10 @@ jira-data-loader.iml
 push
 sync
 target/
+*.tar.gz
+jira-data-loader.jar
+all.sh
+clean.sh
+prepare.sh
+recent.sh
+sample.issue.json

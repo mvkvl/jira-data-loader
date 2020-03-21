@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+#export JIRA_USER=mikhail.kantur
+#export JIRA_PASS=Driver\$69Gutter
+#export JIRA_URL=https://jira.in.devexperts.com
+#export LOGLEVEL=TRACE
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+APP=jira-data-loader
+
+function load_all_data() {
+  cd $DIR/..
+  java -jar lib/${APP}.jar --spring.profiles.active=main,custom \
+                           --user="${JIRA_USER}"                \
+                           --pass="${JIRA_PASS}"                \
+                           --url="${JIRA_URL}"                  \
+                           --all
+}
+
+function load_recent_data() {
+  cd $DIR/..
+  java -jar lib/${APP}.jar --spring.profiles.active=main,custom \
+                           --user=${JIRA_USER}                  \
+                           --pass=${JIRA_PASS}                  \
+                           --url=${JIRA_URL}
+}
+
+function remove_all_data() {
+  cd $DIR/..
+  java -jar lib/${APP}.jar --spring.profiles.active=main,custom \
+                           --clean
+}
+
+case "$1" in
+    "all")
+        load_all_data
+    ;;
+    "recent")
+        load_recent_data
+    ;;
+    "clean")
+        remove_all_data
+    ;;
+    *)
+    echo "Usage: $(basename $0) {all|recent|clean}"
+    ;;
+esac

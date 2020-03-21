@@ -42,8 +42,7 @@ public class JiraDataLoader {
 
     @PostConstruct
     private void loadIssueTemplate() {
-        File file       = FileTools.getFileFromResources("issue.template.json");
-        String contents = FileTools.readFile(file);
+        String contents = FileTools.readFileFromResources("issue.template.json");
         issueTemplate   = new FluentJson(contents);
         producerTemplate = camelContext.createFluentProducerTemplate();
     }

@@ -136,14 +136,14 @@ public class CustomAsynchronousHttpClientFactory extends AsynchronousHttpClientF
                 return props.getProperty("version", UNKNOWN_VERSION);
             } catch (Exception e) {
                 logger.debug("Could not find version for maven artifact {}:{}", groupId, artifactId);
-                logger.debug("Got the following exception", e);
+                logger.debug("Got the following exception", e.getMessage());
                 return UNKNOWN_VERSION;
             } finally {
                 if (resourceAsStream != null) {
                     try {
                         resourceAsStream.close();
                     } catch (IOException ioe) {
-// ignore
+                        // ignore
                     }
                 }
             }
