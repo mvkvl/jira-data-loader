@@ -11,8 +11,9 @@ cd ${DIR}                                                                       
 tar cvfz jug.tar.gz docker loader jira-data-loader.cron                                                && \
 scp jug.tar.gz jug:~                                                                                   && \
 ssh jug 'sudo mv jug.tar.gz /opt && cd /opt && sudo tar xfz jug.tar.gz && sudo rm jug.tar.gz'          && \
-ssh jug "sudo chown -R ${USER} /opt/loader && sudo chown -R ${USER} /opt/docker"                       && \
+ssh jug "sudo chown -R root:root /opt/loader && sudo chown -R root:root /opt/docker"                   && \
 ssh jug "sudo chmod -R a+w /opt/docker/mongodb/data"                                                   && \
+ssh jug "sudo chmod -R a+w /opt/loader/log"                                                            && \
 ssh jug 'cd /opt/docker/mongodb && source /opt/loader/env/env && ./start.sh'                           && \
 ssh jug 'sudo mv /opt/jira-data-loader.cron /etc/cron.d/jira-data-loader'                              && \
 ssh jug 'sudo chown root:root /etc/cron.d/jira-data-loader'                                            && \
