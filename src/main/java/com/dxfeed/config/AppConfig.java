@@ -29,6 +29,7 @@ public class AppConfig {
     private int     skip  = 0;
 
     private boolean clean;
+    private boolean encrypt;
 
     @PostConstruct
     private void init() {
@@ -40,13 +41,14 @@ public class AppConfig {
         return new StringBuilder()
             .append("url     : ").append(url).append("\n")
             .append("user    : ").append(user).append("\n")
-            .append("pass    : ").append(pass).append("\n")
+            .append("pass    : ").append("*********").append("\n")
             .append("projects: ").append(projects).append("\n")
             .append("all     : ").append(all).append("\n")
             .append("dateStr : ").append(dateStr).append("\n")
             .append("limit   : ").append(limit).append("\n")
             .append("skip    : ").append(skip).append("\n")
             .append("clean   : ").append(clean).append("\n")
+            .append("encrypt : ").append(encrypt).append("\n")
             .toString()
         ;
     }

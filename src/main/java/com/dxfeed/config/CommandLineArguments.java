@@ -1,5 +1,8 @@
 package com.dxfeed.config;
 
+import com.dxfeed.crypto.Crypto;
+import com.dxfeed.crypto.KeyService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +13,11 @@ import java.util.Arrays;
 
 @Slf4j
 @Component
+//@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CommandLineArguments {
 
     @Autowired
-    public CommandLineArguments(ApplicationArguments args, AppConfig appConfig) {
+    public CommandLineArguments(ApplicationArguments args, AppConfig appConfig, Crypto crypto, KeyService keyService) {
         if (args.containsOption("url")) {
             appConfig.setUrl(args.getOptionValues("url").get(0));
         }
@@ -22,6 +26,9 @@ public class CommandLineArguments {
         }
         if (args.containsOption("pass")) {
             appConfig.setPass(args.getOptionValues("pass").get(0));
+        }
+        if (args.containsOption("pass-enc")) {
+            appConfig.setPass(crypto.decrypt(args.getOptionValues("pass-enc").get(0), keyService.getShared()));
         }
         if (args.containsOption("projects")) {
             appConfig.getProjects().addAll(Arrays.asList(args.getOptionValues("projects").get(0).split(",")));
@@ -37,6 +44,9 @@ public class CommandLineArguments {
         }
         if (args.containsOption("clean")) {
             appConfig.setClean(true);
+        }
+        if (args.containsOption("encrypt")) {
+            appConfig.setEncrypt(true);
         }
         if (args.containsOption("all") || StringUtils.isEmpty(appConfig.getDateStr()) && appConfig.getLimit() <= 0) {
             appConfig.setAll(true);

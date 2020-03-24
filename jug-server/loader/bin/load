@@ -9,19 +9,34 @@ APP=jira-data-loader
 
 function load_all_data() {
   cd $DIR/..
-  java -jar lib/${APP}.jar --spring.profiles.active=main,custom \
-                           --user="${JIRA_USER}"                \
-                           --pass="${JIRA_PASS}"                \
-                           --url="${JIRA_URL}"                  \
-                           --all
+  if [ -z "$JIRA_PASS_ENC" ]; then
+    java -jar lib/${APP}.jar --spring.profiles.active=main,custom \
+                             --user="${JIRA_USER}"                \
+                             --pass-enc=${JIRA_PASS_ENC}          \
+                             --url="${JIRA_URL}"                  \
+                             --all
+  else
+    java -jar lib/${APP}.jar --spring.profiles.active=main,custom \
+                             --user="${JIRA_USER}"                \
+                             --pass="${JIRA_PASS}"                \
+                             --url="${JIRA_URL}"                  \
+                             --all
+  fi
 }
 
 function load_recent_data() {
   cd $DIR/..
-  java -jar lib/${APP}.jar --spring.profiles.active=main,custom \
-                           --user=${JIRA_USER}                  \
-                           --pass=${JIRA_PASS}                  \
-                           --url=${JIRA_URL}
+  if [ -z "$JIRA_PASS_ENC" ]; then
+    java -jar lib/${APP}.jar --spring.profiles.active=main,custom \
+                             --user=${JIRA_USER}                  \
+                             --pass-enc=${JIRA_PASS_ENC}          \
+                             --url=${JIRA_URL}
+  else
+    java -jar lib/${APP}.jar --spring.profiles.active=main,custom \
+                             --user=${JIRA_USER}                  \
+                             --pass=${JIRA_PASS}                  \
+                             --url=${JIRA_URL}
+  fi
 }
 
 function remove_all_data() {
@@ -29,6 +44,17 @@ function remove_all_data() {
   java -jar lib/${APP}.jar --spring.profiles.active=main,custom \
                            --clean
 }
+
+function encrypt_password() {
+  if [ -z "$1" ]; then
+    echo "error: password not set"
+  else
+    cd $DIR/..
+    java -jar lib/${APP}.jar --spring.profiles.active=main,custom \
+                             --encrypt --pass="$1"
+  fi
+}
+
 
 case "$1" in
     "all")
@@ -40,7 +66,10 @@ case "$1" in
     "clean")
         remove_all_data
     ;;
+    "encrypt")
+        encrypt_password $2
+    ;;
     *)
-    echo "Usage: $(basename $0) {all|recent|clean}"
+    echo "Usage: $(basename $0) {all|recent|clean|encrypt <pass>}"
     ;;
 esac

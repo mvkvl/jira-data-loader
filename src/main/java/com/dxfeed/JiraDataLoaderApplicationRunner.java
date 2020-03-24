@@ -1,6 +1,8 @@
 package com.dxfeed;
 
 import com.dxfeed.config.AppConfig;
+import com.dxfeed.crypto.Crypto;
+import com.dxfeed.crypto.KeyService;
 import com.dxfeed.loader.JiraDataLoader;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +26,9 @@ public class JiraDataLoaderApplicationRunner implements CommandLineRunner, Appli
     private final @NonNull AppConfig appConfig;
     private final @NonNull JiraDataLoader jiraDataLoader;
 
+    private final @NonNull Crypto crypto;
+    private final @NonNull KeyService keyService;
+
     private ConfigurableApplicationContext applicationContext;
 
     @Override
@@ -36,7 +41,14 @@ public class JiraDataLoaderApplicationRunner implements CommandLineRunner, Appli
 
         int exitCode = 0;
 
-        if (appConfig.isClean()) {
+        if (appConfig.isEncrypt()) {
+            if (StringUtils.isBlank(appConfig.getPass())) {
+                System.out.println("Error: --pass argument should be used with --encrypt");
+                exitCode = 1;
+            } else {
+                System.out.println("Encrypted password: " + crypto.encrypt(appConfig.getPass(), keyService.getShared()));
+            }
+        } else if (appConfig.isClean()) {
             jiraDataLoader.cleanup();
         } else {
             if (!checkConfiguration()) {
