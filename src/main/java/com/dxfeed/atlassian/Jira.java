@@ -12,10 +12,8 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
+import java.util.*;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 import java.util.stream.StreamSupport;
 
@@ -153,6 +151,27 @@ public class Jira {
     @SneakyThrows
     public void close() {
         jiraRestClient.close();
+    }
+
+    public Optional<Issue> get(String issueKey) {
+        List<Issue> result = new ArrayList<>();
+        try {
+            Iterable<Issue> issues = jiraRestClient
+                    .getSearchClient()
+                    .searchJql("key = " + issueKey, 1, 0, new HashSet<>(Arrays.asList("*all")))
+                    .get()
+                    .getIssues();
+            if (issues.iterator().hasNext()) {
+                result.addAll((Collection<? extends Issue>) issues);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return (result.size() > 0) ? Optional.of(result.get(0)) : Optional.empty();
     }
 
 }

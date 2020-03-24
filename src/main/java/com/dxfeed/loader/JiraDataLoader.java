@@ -25,6 +25,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.io.File;
 import java.util.Collection;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -192,6 +193,15 @@ public class JiraDataLoader {
         });
     }
 
+    public void getIssue(String issueKey) {
+        Optional<Issue> issue = jira.get(issueKey);
+        if (issue.isPresent()) {
+            System.out.println("got issue " + issueKey);
+            printIssueDetail(issue.get());
+        } else {
+            System.out.println("could not get issue " + issueKey + " from Jira server");
+        }
+    }
 
 //    public void test() {
 //        FluentJson issue = new FluentJson(FileTools.readFile("sample.issue.json"));

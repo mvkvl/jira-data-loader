@@ -17,14 +17,15 @@ public class AppConfig {
     private String url;
     private String user;
     private String pass;
+    private String issue;
 
     @Value("${loader.projects:}")
     private List<String> projects;
 
-    private boolean all   = false;
-
     @Value("${loader.since:}")
     private String  dateStr;
+
+    private boolean all   = false;
     private int     limit = 0;
     private int     skip  = 0;
 
@@ -49,6 +50,7 @@ public class AppConfig {
             .append("skip    : ").append(skip).append("\n")
             .append("clean   : ").append(clean).append("\n")
             .append("encrypt : ").append(encrypt).append("\n")
+            .append("issue   : ").append(issue).append("\n")
             .toString()
         ;
     }

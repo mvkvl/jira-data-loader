@@ -56,7 +56,10 @@ public class JiraDataLoaderApplicationRunner implements CommandLineRunner, Appli
                 exitCode = 1;
             } else {
                 try {
-                    if (appConfig.isAll()) {
+                    if (StringUtils.isNotBlank(appConfig.getIssue())) {
+                        System.out.println("loading issue " + appConfig.getIssue());
+                        jiraDataLoader.getIssue(appConfig.getIssue());
+                    } else if (appConfig.isAll()) {
                         System.out.println("loading all data");
                         jiraDataLoader.load();
                     } else if (StringUtils.isBlank(appConfig.getDateStr()) && appConfig.getLimit() > 0) {
@@ -85,8 +88,8 @@ public class JiraDataLoaderApplicationRunner implements CommandLineRunner, Appli
 
     private boolean checkConfiguration() {
         return
-         !((StringUtils.isBlank(appConfig.getUrl()) || StringUtils.isBlank(appConfig.getUser()) || StringUtils.isBlank(appConfig.getPass()) || appConfig.getProjects().isEmpty())
-         ||(!appConfig.isClean() && !appConfig.isAll() && appConfig.getLimit() <= 0 && StringUtils.isBlank(appConfig.getDateStr()))
+         !((StringUtils.isBlank(appConfig.getUrl()) || StringUtils.isBlank(appConfig.getUser()) || StringUtils.isBlank(appConfig.getPass())) //  appConfig.getProjects().isEmpty()
+           ||(StringUtils.isBlank(appConfig.getIssue()) && !appConfig.isClean() && !appConfig.isAll() && appConfig.getLimit() <= 0 && StringUtils.isBlank(appConfig.getDateStr()))
          );
     }
 

@@ -48,7 +48,10 @@ public class CommandLineArguments {
         if (args.containsOption("encrypt")) {
             appConfig.setEncrypt(true);
         }
-        if (args.containsOption("all") || StringUtils.isEmpty(appConfig.getDateStr()) && appConfig.getLimit() <= 0) {
+        if (args.containsOption("issue")) {
+            appConfig.setIssue(args.getOptionValues("issue").get(0));
+        }
+        if (args.containsOption("all") || StringUtils.isBlank(appConfig.getIssue()) && StringUtils.isEmpty(appConfig.getDateStr()) && appConfig.getLimit() <= 0) {
             appConfig.setAll(true);
         }
     }

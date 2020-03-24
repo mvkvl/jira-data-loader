@@ -9,7 +9,8 @@ APP=jira-data-loader
 
 function load_all_data() {
   cd $DIR/..
-  if [ -z "$JIRA_PASS_ENC" ]; then
+  if [ ! -z "$JIRA_PASS_ENC" ]
+  then
     java -jar lib/${APP}.jar --spring.profiles.active=main,custom \
                              --user="${JIRA_USER}"                \
                              --pass-enc=${JIRA_PASS_ENC}          \
@@ -26,7 +27,8 @@ function load_all_data() {
 
 function load_recent_data() {
   cd $DIR/..
-  if [ -z "$JIRA_PASS_ENC" ]; then
+  if [ ! -z "$JIRA_PASS_ENC" ]
+  then
     java -jar lib/${APP}.jar --spring.profiles.active=main,custom \
                              --user=${JIRA_USER}                  \
                              --pass-enc=${JIRA_PASS_ENC}          \
@@ -55,6 +57,27 @@ function encrypt_password() {
   fi
 }
 
+function get_jira_issue() {
+  if [ -z "$1" ]; then
+    echo "error: issue not set"
+  else
+    cd $DIR/..
+    if [ ! -z "$JIRA_PASS_ENC" ]
+    then
+      java -jar lib/${APP}.jar --spring.profiles.active=main,custom \
+                               --user=${JIRA_USER}                  \
+                               --pass-enc=${JIRA_PASS_ENC}          \
+                               --url=${JIRA_URL}                    \
+                               --issue="$1"
+    else
+      java -jar lib/${APP}.jar --spring.profiles.active=main,custom \
+                               --user=${JIRA_USER}                  \
+                               --pass=${JIRA_PASS}                  \
+                               --url=${JIRA_URL}                    \
+                               --issue="$1"
+    fi
+  fi
+}
 
 case "$1" in
     "all")
@@ -67,9 +90,12 @@ case "$1" in
         remove_all_data
     ;;
     "encrypt")
-        encrypt_password $2
+        encrypt_password "$2"
+    ;;
+    "get")
+        get_jira_issue "$2"
     ;;
     *)
-    echo "Usage: $(basename $0) {all|recent|clean|encrypt <pass>}"
+    echo "Usage: $(basename $0) {all | recent | clean | encrypt <pass> | get <issue>}"
     ;;
 esac
